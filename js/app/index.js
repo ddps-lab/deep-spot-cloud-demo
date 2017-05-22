@@ -6,6 +6,11 @@ function closeDescription() {
     $("#service-info").hide();
 }
 
+function expandServiceInfo() {
+    $("#info-text-short").hide();
+    $("#info-text-full").show();
+}
+
 $(document).ready(function () {
     // 1. Get current timezone offset
     const tzOffset = -(new Date().getTimezoneOffset() / 60);
