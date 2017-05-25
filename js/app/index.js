@@ -2,8 +2,9 @@
  * Created by kde713 on 2017. 5. 1..
  */
 
-function closeDescription() {
-    $("#service-info").hide();
+function shrinkServiceInfo() {
+    $("#info-text-full").hide();
+    $("#info-text-short").show();
 }
 
 function expandServiceInfo() {
