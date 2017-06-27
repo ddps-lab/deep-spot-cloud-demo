@@ -9,6 +9,9 @@
     <link href="css/datepicker3.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.14/c3.min.css"
+          integrity="sha256-7hWTz8gV+9UAjyZFjT31rIGu4NPTqN2BdU+SD11UUn8=" crossorigin="anonymous"/>
+
     <!--Icons-->
     <script src="js/core/lumino.glyphs.js"></script>
 
@@ -101,10 +104,13 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div id="info-text-short">
-                        <p>DeepSpotCloud provides a way to execute deep learning task in a cost efficient way using GPU spot
+                        <p>DeepSpotCloud provides a way to execute deep learning task in a cost efficient way using GPU
+                            spot
                             instances in AWS EC2...</p>
                         <p>
-                            <button class="btn btn-primary btn-lg" role="button" onclick="expandServiceInfo()">Show More</button>
+                            <button class="btn btn-primary btn-lg" role="button" onclick="expandServiceInfo()">Show
+                                More
+                            </button>
                             <a class="btn btn-primary btn-lg" href="https://github.com/kmu-bigdata/deep-spot-cloud"
                                target="_blank" role="button">Code on Github</a>
                             <a class="btn btn-primary btn-lg" href="http://leeky.me/publications/deep-spot-cloud.pdf"
@@ -112,17 +118,25 @@
                         </p>
                     </div>
                     <div id="info-text-full" style="display: none;">
-                        <p>DeepSpotCloud provides a way to execute deep learning task in a cost efficient way using GPU spot
+                        <p>DeepSpotCloud provides a way to execute deep learning task in a cost efficient way using GPU
+                            spot
                             instances in AWS EC2. It utilizes spot instances across regions (continents) to broaden
-                            candidate instances. To preserve intermediate work even when an instance is interrupted due to
-                            an outbid event, DeepSpotCloud uses the checkpoint mechanism; an interrupted instance uploads a
-                            checkpoint outcome to a shared storage, and a new instance (in a different region/availability
+                            candidate instances. To preserve intermediate work even when an instance is interrupted due
+                            to
+                            an outbid event, DeepSpotCloud uses the checkpoint mechanism; an interrupted instance
+                            uploads a
+                            checkpoint outcome to a shared storage, and a new instance (in a different
+                            region/availability
                             zone) resumes after downloading the checkpoint outcome.</p>
-                        <p>The goal of this website is to show how DeepSpotCloud operates. It currently runs on an AWS EC2
+                        <p>The goal of this website is to show how DeepSpotCloud operates. It currently runs on an AWS
+                            EC2
                             g2.2xlarge spot instance while executing <a
-                                    href="https://www.tensorflow.org/tutorials/deep_cnn">CIFAR-10 TensorFlow</a> job.</p>
+                                    href="https://www.tensorflow.org/tutorials/deep_cnn">CIFAR-10 TensorFlow</a> job.
+                        </p>
                         <p>
-                            <button class="btn btn-primary btn-lg" role="button" onclick="shrinkServiceInfo()">Show less</button>
+                            <button class="btn btn-primary btn-lg" role="button" onclick="shrinkServiceInfo()">Show
+                                less
+                            </button>
                             <a class="btn btn-primary btn-lg" href="https://github.com/kmu-bigdata/deep-spot-cloud"
                                target="_blank" role="button">Code on Github</a>
                             <a class="btn btn-primary btn-lg" href="http://leeky.me/publications/deep-spot-cloud.pdf"
@@ -203,7 +217,17 @@
                 <div class="panel-heading">Saving Rates</div>
                 <div class="panel-body">
                     <div class="canvas-wrapper">
-                        <canvas class="main-chart" id="view_saving_chart" height="200" width="600"></canvas>
+                        <div class="main-chart" id="view_saving_chart"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-8">
+                            <div class="btn-group btn-group pull-right" role="group" aria-label="...">
+                                <button id="reload_btn_1" type="button" class="btn btn-default" onclick="reloadChart(1)" disabled>Day</button>
+                                <button id="reload_btn_2" type="button" class="btn btn-default" onclick="reloadChart(2)" disabled>Week</button>
+                                <button id="reload_btn_3" type="button" class="btn btn-default" onclick="reloadChart(3)" disabled>Month</button>
+                                <button id="reload_btn_4" type="button" class="btn btn-default" onclick="reloadChart(4)" disabled>Year</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,29 +236,19 @@
 
 </div>    <!--/.main-->
 
-<div id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header"><h1>Fetching data...</h1></div>
-            <div class="modal-body">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped active" role="progressbar"
-                         aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="js/core/bootstrap.min.js"></script>
-<script src="js/core/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/1.5.3/loadingoverlay.min.js"
+        integrity="sha256-D5BJBT8CyTCxkOVRiIoP4XmW4b3MDN9ZPbx50xI64uw=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/1.5.3/loadingoverlay_progress.min.js"
+        integrity="sha256-a9i+LVk73CTLdUmOc7ZyyejAUe9nwBKaeRww6cLoREQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"
+        integrity="sha256-dsOXGNHAo/syFnazt+KTBsCQeRmlcW1XKL0bCK4Baec=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.14/c3.min.js"
+        integrity="sha256-cwEPabTWbonFMU7M3eAXrLHKurW1UfWzMlG9dDT0aP4=" crossorigin="anonymous"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script type="text/javascript" src="js/app/base.js"></script>
+<script type="text/javascript" src="js/app/dummy.js"></script>
 <script type="text/javascript" src="js/app/index.js"></script>
 </body>
 

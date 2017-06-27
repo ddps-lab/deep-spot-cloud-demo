@@ -11,14 +11,10 @@ $(document).ready(function () {
     const pricetable_body = pricetable.find("> tbody");
 
     // 2. Request Cloud data via ajax
-    myLoader.showMe();
-
     $.ajax({
         type: "GET",
         url: BASE_URL + "/deploy?local=" + tzOffset,
         success: function (data) {
-            myLoader.hideMe();
-
             // 3. Putting data in variables
             const price_data = data["pricetable"];
 
@@ -30,7 +26,6 @@ $(document).ready(function () {
 
         },
         error: function (e) {
-            myLoader.hideMe();
             alert("Unexpected error occured while loading cloud data.");
         }
     });
