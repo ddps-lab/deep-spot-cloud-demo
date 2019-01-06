@@ -2,8 +2,7 @@
  * Created by kde713 on 2017. 5. 1..
  */
 
-const BASE_URL = "https://j1kg8eg5p9.execute-api.us-east-1.amazonaws.com";
-
+const BASE_URL = "https://2qpqv1y858.execute-api.us-west-2.amazonaws.com";
 
 
 // for Responsive UI
