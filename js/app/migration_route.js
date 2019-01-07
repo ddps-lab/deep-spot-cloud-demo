@@ -13,7 +13,7 @@ $(document).ready(function () {
     // 2. Request Cloud data via ajax
     $.ajax({
         type: "GET",
-        url: BASE_URL + "/deploy?local=" + tzOffset,
+        url: BASE_URL + "/deploy/show-status-on-web?local=" + tzOffset,
         success: function (data) {
             // 3. Putting data in variables
             const migration_route = data["migration"];
